@@ -12,14 +12,16 @@ for i in range(num_variables):
 
 # Loop through all the binary representations of all the possible values of the variables
 # ie 2^(3 variables-1) will produce 111
-for i in range(2 ** num_variables - 1):
+for i in range(2 ** num_variables):
     # evaluate first digit
+    index = 0
     while i > 0:
         if i % 2 == 1:
             # if the first digit is 1, set the variable to 1 in the dictionary
-            glb["x" + str(i + 1)] = 1
+            glb["x" + str(index + 1)] = 1
+        index += 1
         # dividing by two takes away the units digit in binary
-        i /= 2
+        i //= 2
 
     # bitwise-ly evaluate the user_input given the dictionary values
     # eval is able to calculate propositions because it uses the same notations as bitwise ( | & ~ () )
@@ -28,7 +30,7 @@ for i in range(2 ** num_variables - 1):
         truth_value = 1
         break
 
-    # reset the values of everything in the dictionary to 0 after each iteration
+    # reset the values of everything in the dictionary to 0
     for j in range(num_variables):
         glb["x" + str(j + 1)] = 0
 
