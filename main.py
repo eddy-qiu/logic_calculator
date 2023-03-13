@@ -11,17 +11,14 @@ for i in range(num_variables):
     glb["x" + str(i + 1)] = 0
 
 # Loop through all the binary representations of all the possible values of the variables
-# ie 2^(3 variables) - 1 will produce 111
+# ie 2^(3 variables-1) will produce 111
 for i in range(2 ** num_variables - 1):
     # evaluate first digit
     while i > 0:
         if i % 2 == 1:
-            # if the first digit is 1, add the variable = 1 to the dictionary
+            # if the first digit is 1, set the variable to 1 in the dictionary
             glb["x" + str(i + 1)] = 1
-        else:
-            # else if the first digit is 0, add the variable = 0 to the dictionary
-            glb["x" + str(i + 1)] = 0
-        # dividing by two takes away a digit in binary
+        # dividing by two takes away the units digit in binary
         i /= 2
 
     # bitwise-ly evaluate the user_input given the dictionary values
@@ -30,6 +27,10 @@ for i in range(2 ** num_variables - 1):
         # if the evaluation is true, set truth value to true and break the loop
         truth_value = 1
         break
+
+    # reset the values of everything in the dictionary to 0 after each iteration
+    for j in range(num_variables):
+        glb["x" + str(j + 1)] = 0
 
 # print the result
 if truth_value:
